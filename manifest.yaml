@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: to-nginx
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: nginx
   ports:
@@ -61,4 +61,22 @@ spec:
       target:
         type: Value
         averageUtilization: 70
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argotest-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ingress.bexa.local
+    http:
+      paths:
+      - path: /argotest
+        pathType: Prefix
+        backend:
+          service:
+            name: to-nginx
+            port:
+              number: 80
 ---
