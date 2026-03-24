@@ -67,7 +67,7 @@ kind: Ingress
 metadata:
   name: argotest-ingress
   annotations:
-    nginx.org/rewrites: "/"
+    nginx.org/rewrites: "serviceName=to-nginx rewrite=/"
 spec:
   ingressClassName: nginx
   rules:
